@@ -61,7 +61,7 @@ class ViewController: UIViewController {
 }
 
 
-//MARK: extension
+//MARK: extensions
 
 extension ViewController: SFSafariViewControllerDelegate {
     
