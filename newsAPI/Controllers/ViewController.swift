@@ -42,22 +42,13 @@ class ViewController: UIViewController {
         self.tableView.reloadData()
     }
     
-    func updateSearchResults(searchController: UISearchController) {
-        ListOfArticles.shared.arrayOfArticles = ListOfArticles.shared.arrayOfArticles.filter( {(article: Article) -> Bool in
-            if (article.desc?.contains(searchController.searchBar.text!))! {
-                return true
-            } else {
-                return false
-            }
-        })
-    }
-    
     @objc func updateData(_ refreshControl: UIRefreshControl) {
-        ListOfArticles.shared.arrayOfArticles = [Article]()
-        News.shared.getNews(tableView: self.tableView)
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            ListOfArticles.shared.arrayOfArticles = [Article]()
+            News.shared.getNews(tableView: self.tableView)
+            refreshControl.endRefreshing()
+        }
     }
-    
 }
 
 
@@ -92,7 +83,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 210
+        return 180
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
